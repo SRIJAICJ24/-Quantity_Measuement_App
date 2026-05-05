@@ -29,25 +29,30 @@ public class Quantity<U extends IMeasurable> {
         return baseValue / targetUnit.getBaseValue(1.0);
     }
 
-    public Quantity<U> add(Quantity<U> other) {
-        if (other == null) throw new IllegalArgumentException("Cannot add null");
-        double totalBaseValue = this.unit.getBaseValue(this.value) + other.unit.getBaseValue(other.value);
-        double newValue = totalBaseValue / this.unit.getBaseValue(1.0);
+    private Quantity<U> performOperation(Quantity<U> other, Operation op) {
+        if (other == null) throw new IllegalArgumentException("Operand cannot be null");
+        double v1 = this.unit.getBaseValue(this.value);
+        double v2 = other.unit.getBaseValue(other.value);
+        double resultBase = op.execute(v1, v2);
+        double newValue = resultBase / this.unit.getBaseValue(1.0);
         return new Quantity<>(newValue, this.unit);
+    }
+
+    public Quantity<U> add(Quantity<U> other) {
+        return performOperation(other, Operation.ADD);
     }
 
     public Quantity<U> add(Quantity<U> other, U targetUnit) {
         if (other == null || targetUnit == null) throw new IllegalArgumentException("Arguments cannot be null");
-        double totalBaseValue = this.unit.getBaseValue(this.value) + other.unit.getBaseValue(other.value);
-        double newValue = totalBaseValue / targetUnit.getBaseValue(1.0);
+        double v1 = this.unit.getBaseValue(this.value);
+        double v2 = other.unit.getBaseValue(other.value);
+        double resultBase = Operation.ADD.execute(v1, v2);
+        double newValue = resultBase / targetUnit.getBaseValue(1.0);
         return new Quantity<>(newValue, targetUnit);
     }
 
     public Quantity<U> subtract(Quantity<U> other) {
-        if (other == null) throw new IllegalArgumentException("Cannot subtract null");
-        double baseDiff = this.unit.getBaseValue(this.value) - other.unit.getBaseValue(other.value);
-        double newValue = baseDiff / this.unit.getBaseValue(1.0);
-        return new Quantity<>(newValue, this.unit);
+        return performOperation(other, Operation.SUBTRACT);
     }
 
     public double divide(Quantity<U> other) {
