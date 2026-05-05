@@ -22,4 +22,11 @@ public class QuantityLength {
         double baseValue = this.unit.getBaseValue(this.value);
         return baseValue / targetUnit.getBaseValue(1.0);
     }
+
+    public QuantityLength add(QuantityLength other) {
+        if (other == null) throw new IllegalArgumentException("Cannot add null");
+        double totalBaseValue = this.unit.getBaseValue(this.value) + other.unit.getBaseValue(other.value);
+        double newValue = totalBaseValue / this.unit.getBaseValue(1.0);
+        return new QuantityLength(newValue, this.unit);
+    }
 }

@@ -39,4 +39,12 @@ class QuantityLengthTest {
         double inches = ft.convertTo(LengthUnit.INCHES);
         assertEquals(24.0, inches, 0.0001);
     }
+
+    @Test
+    void givenTwoInchesAndTwoInches_whenAdded_shouldReturnFourInches() {
+        QuantityLength q1 = new QuantityLength(2.0, LengthUnit.INCHES);
+        QuantityLength q2 = new QuantityLength(2.0, LengthUnit.INCHES);
+        QuantityLength result = q1.add(q2);
+        assertEquals(new QuantityLength(4.0, LengthUnit.INCHES), result);
+    }
 }
