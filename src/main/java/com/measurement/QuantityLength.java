@@ -14,9 +14,6 @@ public class QuantityLength {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         QuantityLength that = (QuantityLength) obj;
-        return Double.compare(
-            this.unit.getBaseValue(this.value),
-            that.unit.getBaseValue(that.value)
-        ) == 0;
+        return Math.abs(this.unit.getBaseValue(this.value) - that.unit.getBaseValue(that.value)) < 0.0001;
     }
 }
