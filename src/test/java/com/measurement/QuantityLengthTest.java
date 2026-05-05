@@ -32,4 +32,11 @@ class QuantityLengthTest {
         QuantityLength cm = new QuantityLength(5.0, LengthUnit.CENTIMETERS);
         assertEquals(in, cm);
     }
+
+    @Test
+    void givenFeet_whenConvertedToInches_shouldReturnCorrectValue() {
+        QuantityLength ft = new QuantityLength(2.0, LengthUnit.FEET);
+        double inches = ft.convertTo(LengthUnit.INCHES);
+        assertEquals(24.0, inches, 0.0001);
+    }
 }
