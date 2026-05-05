@@ -42,4 +42,18 @@ public class Quantity<U extends IMeasurable> {
         double newValue = totalBaseValue / targetUnit.getBaseValue(1.0);
         return new Quantity<>(newValue, targetUnit);
     }
+
+    public Quantity<U> subtract(Quantity<U> other) {
+        if (other == null) throw new IllegalArgumentException("Cannot subtract null");
+        double baseDiff = this.unit.getBaseValue(this.value) - other.unit.getBaseValue(other.value);
+        double newValue = baseDiff / this.unit.getBaseValue(1.0);
+        return new Quantity<>(newValue, this.unit);
+    }
+
+    public double divide(Quantity<U> other) {
+        if (other == null) throw new IllegalArgumentException("Cannot divide by null");
+        double denominator = other.unit.getBaseValue(other.value);
+        if (denominator == 0) throw new ArithmeticException("Division by zero");
+        return this.unit.getBaseValue(this.value) / denominator;
+    }
 }

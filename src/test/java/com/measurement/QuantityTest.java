@@ -81,4 +81,20 @@ class QuantityTest {
         Quantity<VolumeUnit> litres = new Quantity<>(3.78541, VolumeUnit.LITRE);
         assertEquals(gallon, litres);
     }
+
+    // ARITHMETIC TESTS (SUBTRACT/DIVIDE)
+    @Test
+    void givenTwoLengths_whenSubtracted_shouldReturnCorrectDifference() {
+        Quantity<LengthUnit> q1 = new Quantity<>(2.0, LengthUnit.FEET);
+        Quantity<LengthUnit> q2 = new Quantity<>(12.0, LengthUnit.INCHES);
+        Quantity<LengthUnit> result = q1.subtract(q2);
+        assertEquals(new Quantity<>(1.0, LengthUnit.FEET), result);
+    }
+
+    @Test
+    void givenTwoQuantities_whenDivided_shouldReturnScalar() {
+        Quantity<WeightUnit> q1 = new Quantity<>(2.0, WeightUnit.KILOGRAM);
+        Quantity<WeightUnit> q2 = new Quantity<>(500.0, WeightUnit.GRAM);
+        assertEquals(4.0, q1.divide(q2), 0.001);
+    }
 }
