@@ -73,4 +73,12 @@ class QuantityTest {
         // They are completely different generics, but equals takes Object
         assertNotEquals(length, weight);
     }
+
+    // VOLUME TESTS
+    @Test
+    void givenOneGallonAndLitres_whenCompared_shouldBeEqual() {
+        Quantity<VolumeUnit> gallon = new Quantity<>(1.0, VolumeUnit.GALLON);
+        Quantity<VolumeUnit> litres = new Quantity<>(3.78541, VolumeUnit.LITRE);
+        assertEquals(gallon, litres);
+    }
 }
