@@ -47,4 +47,12 @@ class QuantityLengthTest {
         QuantityLength result = q1.add(q2);
         assertEquals(new QuantityLength(4.0, LengthUnit.INCHES), result);
     }
+
+    @Test
+    void givenFeetAndInches_whenAddedTargetInches_shouldReturnTotalInInches() {
+        QuantityLength q1 = new QuantityLength(1.0, LengthUnit.FEET); // 12 in
+        QuantityLength q2 = new QuantityLength(2.0, LengthUnit.INCHES); // 2 in
+        QuantityLength result = q1.add(q2, LengthUnit.INCHES);
+        assertEquals(new QuantityLength(14.0, LengthUnit.INCHES), result);
+    }
 }
